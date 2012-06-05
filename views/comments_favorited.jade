@@ -1,0 +1,15 @@
+h1 Which comments by #{commenter.name} were favorited by #{faver.name} in #{titleSuffix(site, category, startDate, endDate)}?
+
+table.results
+  tr
+    th Date
+    th Post
+  - each c in comments
+    tr
+      td.date
+        #{date(c.created)}
+      td
+        a(href = commentUrl(site, c.post_id, c.comment_id)) #{c.title}
+
+script
+  setupInfiniteScroll()

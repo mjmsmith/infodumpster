@@ -1,0 +1,27 @@
+h1
+  | Which comments
+  - if (commenter)
+    |  by #{commenter.name}
+  |  in #{titleSuffix(site, category, startDate, endDate)} have the most favorites?
+
+table.results
+  tr
+    th Date
+    th Favorites
+    - if (!commenter)
+      th User
+    th Post
+  - each c in comments
+    tr
+      td.date
+        #{date(c.created)}
+      td.number
+        a(href = commentFavoritesUrl(site, c.comment_id)) #{c.favorites_count}
+      - if (!commenter)
+        td.user
+          a(href = profileUrl(c.user_id)) #{c.name}
+      td
+        a(href = commentUrl(site, c.post_id, c.comment_id)) #{c.title}
+
+script
+  setupInfiniteScroll()

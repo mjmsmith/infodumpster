@@ -1,0 +1,15 @@
+h1 Who made the most posts in #{titleSuffix(site, category, startDate, endDate)}?
+
+table.results
+  tr
+    th Posts
+    th User
+  - each u in users
+    tr
+      td.number
+        a(href = postsActivityUrl(site, u.id)) #{u.posts_count}
+      td
+        a(href = profileUrl(u.id)) #{u.name}
+
+script
+  setupInfiniteScroll()

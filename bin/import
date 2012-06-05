@@ -1,0 +1,37 @@
+#! /usr/bin/env ruby
+
+require 'open-uri'
+
+def exec_sql filename
+  puts `mysql -v -u#{ENV['MYSQL_USER']} -p#{ENV['MYSQL_PASSWORD']} mefi < #{filename}`
+end
+
+def delete_files pattern
+  Dir.glob pattern do |filename| File.delete filename end
+end
+
+def cleanup
+  delete_files '*.txt'
+  delete_files 'tmp.sql'
+end
+
+Dir.chdir(File.dirname($0) + '/../data')
+
+cleanup
+puts 'unzipping infodump'
+`unzip -o infodump-all.zip`
+
+puts 'importing user'
+exec_sql 'user.sql'
+
+puts 'importing favorite'
+exec_sql 'favorite.sql'
+
+['mefi', 'askme', 'meta', 'music'].each do |site|
+  puts "importing #{site}"
+  sql = File.new('site.sql').read.gsub('${site}', site)
+  File.open('tmp.sql', 'w') {|f| f.write sql}
+  exec_sql 'tmp.sql'
+end
+
+cleanup

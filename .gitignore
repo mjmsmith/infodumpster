@@ -1,0 +1,7 @@
+.hg*
+.idea/
+data/*.txt
+data/infodump-all.zip
+public/css/app.css
+public/css/reset.css
+public/webalizer/

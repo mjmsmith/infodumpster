@@ -1,0 +1,6 @@
+#! /bin/sh
+
+cd `dirname $0`/../data
+
+curl -O http://mefi.us/infodump/infodump-all.zip
+

@@ -1,0 +1,15 @@
+h1 Who had the most best answers in #{titleSuffix(site, category, startDate, endDate)}?
+
+table.results
+  tr
+    th Answers
+    th User
+  - each u in users
+    tr
+      td.number
+        a(href = commentsBestedUrl(site, category, u.id, startDate, endDate)) #{u.comments_count}
+      td
+        a(href = profileUrl(u.id)) #{u.name}
+
+script
+  setupInfiniteScroll()

@@ -1,0 +1,37 @@
+{
+  "name": "infodumpster",
+  "preferGlobal": "false",
+  "version": "1.0.0",
+  "author": "Mark Smith <mark@camazotz.com>",
+  "description": "MetaFilter Infodump analysis tool",
+  "contributors": [ 
+  ],
+  "bin": {
+  },
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "main": "./app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjmsmith/infodumpster.git"
+  },
+  "keywords": [
+  ],
+  "dependencies" : {
+    "coffee-script": "*",
+    "express": "*",
+    "mysql": "*",
+    "optimist": "*",
+    "stylus": "*"
+  },
+  "noAnalyze": true,
+  "devDependencies": {
+  },
+  "bundleDependencies": [
+  ],
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}

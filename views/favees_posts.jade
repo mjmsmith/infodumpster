@@ -1,0 +1,22 @@
+h1
+  | Whose posts were most favorited
+  - if (faver)
+    |  by #{faver.name}
+  |  in #{titleSuffix(site, category, startDate, endDate)}?
+ 
+table.results
+  tr
+    th Favorites
+    th User
+  - each u in users
+    tr
+      td.number
+        - if (faver)
+          a(href = postsFavoritedUrl(site, category, u.id, faver.id, startDate, endDate)) #{u.favorites_count}
+        - else
+          a(href = postsActivityUrl(site, u.id)) #{u.favorites_count}
+      td
+        a(href = profileUrl(u.id)) #{u.name}
+
+script
+  setupInfiniteScroll()

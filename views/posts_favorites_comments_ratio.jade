@@ -1,0 +1,32 @@
+h1
+  | Which posts
+  - if (poster)
+    |  by #{poster.name}
+  - if (tag)
+    |  tagged with "#{tag}"
+  |  in #{titleSuffix(site, category, startDate, endDate)} have the highest favorites:comments ratio?
+
+table.results
+  tr
+    th Date
+    th Favorites
+    th Comments
+    - if (!poster)
+      th User
+    th Post
+  - each p in posts
+    tr
+      td.date
+        #{date(p.created)}
+        td.number
+          a(href = postFavoritesUrl(site, p.post_id)) #{p.favorites_count}
+        td.number
+          #{p.comments_count}
+      - if (!poster)
+        td.user
+          a(href = profileUrl(p.user_id)) #{p.name}
+      td
+        a(href = postUrl(site, p.post_id)) #{p.title}
+
+script
+  setupInfiniteScroll()

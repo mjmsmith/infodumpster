@@ -1,0 +1,18 @@
+!!!
+
+html
+  head
+    title infodumpster
+    link(rel = "stylesheet", type = "text/css", href = "/css/reset.css")
+    link(rel = "stylesheet", type = "text/css", href = "/css/jquery-ui-1.8.css")
+    link(rel = "stylesheet", type = "text/css", href = "/css/app.css")
+    script(src = "/js/jquery-1.4.2.js", type = "text/javascript")
+    script(src = "/js/jquery-ui-1.8.js", type = "text/javascript")
+    script(src = "/js/app.js", type = "text/javascript")
+
+  body(style = "background-color:"+siteColor(site))
+    .logo
+      a(href = "/")
+        span mefi 
+        | infodumpster
+    != body

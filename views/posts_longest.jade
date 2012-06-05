@@ -1,0 +1,29 @@
+h1
+  | Which posts
+  - if (poster)
+    |  by #{poster.name}
+  - if (tag)
+    |  tagged with "#{tag}"
+  |  in #{titleSuffix(site, category, startDate, endDate)} are the longest?
+
+table.results
+  tr
+    th Date
+    th Length
+    - if (!poster)
+      th User
+    th Post
+  - each p in posts
+    tr
+      td.date
+        #{date(p.created)}
+      td.number
+        #{p.length}
+      - if (!poster)
+        td.user
+          a(href = profileUrl(p.user_id)) #{p.name}
+      td
+        a(href = postUrl(site, p.post_id)) #{p.title}
+
+script
+  setupInfiniteScroll()
