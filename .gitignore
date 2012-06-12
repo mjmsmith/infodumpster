@@ -2,6 +2,7 @@
 .idea/
 data/*.txt
 data/infodump-all.zip
+node_modules/
 public/css/app.css
 public/css/reset.css
 public/webalizer/

@@ -19,11 +19,12 @@
   "keywords": [
   ],
   "dependencies" : {
-    "coffee-script": "*",
-    "express": "*",
-    "mysql": "*",
-    "optimist": "*",
-    "stylus": "*"
+    "coffee-script": "1.3.3",
+    "express": "2.5.9",
+    "jade": "0.26.1",
+    "mysql": "0.9.6",
+    "optimist": "0.3.4",
+    "stylus": "0.27.1"
   },
   "noAnalyze": true,
   "devDependencies": {
