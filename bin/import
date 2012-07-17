@@ -3,7 +3,7 @@
 require 'open-uri'
 
 def exec_sql filename
-  puts `mysql -v -u#{ENV['MYSQL_USER']} -p#{ENV['MYSQL_PASSWORD']} mefi < #{filename}`
+  puts `mysql -v mefi < #{filename}`
 end
 
 def delete_files pattern
