@@ -9,7 +9,7 @@ table.results
       td.date
         #{date(p.created)}
       td
-        a(href = postUrl(site, p.post_id)) #{p.title}
+        a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
 
 script
   setupInfiniteScroll()

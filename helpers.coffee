@@ -112,6 +112,10 @@ exports.helpers = {
   commentsBestedUrl: (site, category, commenterID, startDate, endDate) ->
     "/comments/bested?site=#{site}&category=#{category}&commenter_id=#{commenterID}&start_date=#{startDate}&end_date=#{endDate}"
 
+  titleHtml: (title, deleted) ->
+    klass = if deleted then "deleted" else ""
+    "<span class=\"#{klass}\">#{title}</span>"
+
   profileUrl: (id) ->
     "http://metafilter.com/user/#{id}"
     
