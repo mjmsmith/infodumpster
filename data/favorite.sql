@@ -10,7 +10,7 @@ CREATE TABLE favorite (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-LOAD DATA LOCAL INFILE 'favoritesdata.txt' REPLACE INTO TABLE favorite
+LOAD DATA LOCAL INFILE 'favoritesdata.txt' REPLACE INTO TABLE favorite CHARACTER SET utf8
 LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
   id,faver_id,favee_id,type,comment_id,post_id,created
 );
