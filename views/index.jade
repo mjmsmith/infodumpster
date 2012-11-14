@@ -45,101 +45,101 @@ table.common-controls
 h2 People
 
 form(action = '/users/posts')
-  | Who made the most posts
+  | Who made the most posts 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/users/comments')
-  | Who made the most comments
+  | Who made the most comments 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/favees/posts')
-  | Whose posts were most favorited by
+  | Whose posts were most favorited by 
   input(type = 'text', name = 'faver_name', placeholder = 'everyone')
-  |
+  | 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/favees/comments')
-  | Whose comments were most favorited by
+  | Whose comments were most favorited by 
   input(type = 'text', name = 'faver_name', placeholder = 'everyone')
-  |
+  | 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form#best(action = '/users/best')
-  | Who has the most best answers
+  | Who has the most best answers 
   input(type = 'submit', value = '?')
   mixin hidden
 
 h2 Posts
 
 form(action = '/posts/comments')
-  | Which posts by
+  | Which posts by 
   input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with
+  |  tagged with 
   input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the most comments
+  |  have the most comments 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/posts/favorites')
-  | Which posts by
+  | Which posts by 
   input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with
+  |  tagged with 
   input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the most favorites
+  |  have the most favorites 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/posts/favorites_comments_ratio')
-  | Which posts by
+  | Which posts by 
   input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with
+  |  tagged with 
   input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the highest favorites:comments ratio
+  |  have the highest favorites:comments ratio 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/posts/longest')
-  | Which posts by
+  | Which posts by 
   input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with
+  |  tagged with 
   input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  are the longest
+  |  are the longest 
   input(type = 'submit', value = '?')
   mixin hidden
 
 h2 Comments
 
 form(action = '/comments/favorites')
-  | Which comments by
+  | Which comments by 
   input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
-  |  have the most favorites
+  |  have the most favorites 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/comments/longest')
-  | Which comments by
+  | Which comments by 
   input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
-  |  are the longest
+  |  are the longest 
   input(type = 'submit', value = '?')
   mixin hidden
 
 h2 Fans
 
 form(action = '/favers/posts')
-  | Who favorited the most posts by
+  | Who favorited the most posts by 
   input(type = 'text', name = 'poster_name', placeholder = '(username)')
-  |
+  | 
   input(type = 'submit', value = '?')
   mixin hidden
 
 form(action = '/favers/comments')
-  | Who favorited the most comments by
+  | Who favorited the most comments by 
   input(type = 'text', name = 'commenter_name', placeholder = '(username)')
-  |
+  | 
   input(type = 'submit', value = '?')
   mixin hidden
 
@@ -200,7 +200,7 @@ p
   a(href = 'http://stuff.metafilter.com/infodump/') Infodump data
   |  current as of #{dataDate}.
 p
-  | Comment or complain
+  | Comment or complain 
   a(href = 'http://www.metafilter.com/user/44102') here
   | .
 p
