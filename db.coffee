@@ -366,6 +366,19 @@ exports.usersComments = ({site, category, startDate, endDate, page}, cb) ->
 
   rows(sql, page, cb)
 
+exports.usersFind = ({username, page}, cb) ->
+  [username] = escapeQuotes(username)
+  page = parseInt(page, 10) || 0
+  sql = [
+    "select u.id, u.name"
+    "from user u"
+    "where 1"
+    "and u.name like '%#{username}%'" if username
+    "group by u.id"
+  ].join(" ")
+
+  rows(sql, page, cb)
+
 exports.usersPosts = ({site, category, startDate, endDate, page}, cb) ->
   [site, startDate, endDate] = escapeQuotes(site, startDate, endDate)
   category = parseInt(category, 10) if category

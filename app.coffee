@@ -194,6 +194,13 @@ app.get "/users/comments", preprocessQuery, (req, res) ->
     args.users = users
     res.render "users_comments", args
 
+app.get "/users/find", preprocessQuery, (req, res) ->
+  args = baseArgs req
+  args.username = req.query.username
+  db.usersFind args, (users) ->
+    args.users = users
+    res.render "users_find", args
+
 app.get "/users/posts", preprocessQuery, (req, res) ->
   args = baseArgs req
   db.usersPosts args, (users) ->

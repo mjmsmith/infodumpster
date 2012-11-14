@@ -145,6 +145,13 @@ form(action = '/favers/comments')
 
 h2 Find
 
+form(action = '/users/find')
+  | Find people whose username contains 
+  input(type = 'text', name = 'username', placeholder = 'anything')
+  | 
+  input(type = 'submit', value = 'go fetch')
+  mixin hidden
+
 form(action = '/posts/find')
   table
     tr
