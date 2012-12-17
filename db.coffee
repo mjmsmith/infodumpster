@@ -405,7 +405,8 @@ exports.userByName = (name, cb) ->
   sql = "select * from user where name = '#{name}'"
   
   conn.query(sql, (errors, results, fields) ->
-    cb(results[0] || null)
+    console.error(errors) if errors
+    cb(results?[0] || null)
   )
 
 exports.userByID = (id, cb) ->
@@ -415,7 +416,8 @@ exports.userByID = (id, cb) ->
   sql = "select * from user where id = #{id}"
 
   conn.query(sql, (errors, results, fields) ->
-    cb(results[0] || null)
+    console.error(errors) if errors
+    cb(results?[0] || null)
   )
 
 exports.dataDate = (cb) ->
@@ -438,7 +440,7 @@ rows = (sql, page, cb) ->
   )
 
 escapeQuotes = (args...) ->
-  (if arg then arg.replace("'", "''") else null) for arg in args
+  (if arg then arg.replace(/'/g, "''") else null) for arg in args
   
 expandStartDate = (date) ->
   [y,m,d] = date.match(/^(\d\d\d\d)(?:-(\d\d))?(?:-(\d\d))?$/)[1..3]
