@@ -6,7 +6,7 @@ The **infodumpster** is a tool to analyze [MetaFilter](http://metafilter.com) [i
 Prerequisites
 =============
 
-Node.js v0.6x and MySQL 5.x.
+Node.js v0.8x and MySQL 5.x.
 
 Installation
 ============
