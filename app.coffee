@@ -25,7 +25,7 @@ baseArgs = (req) ->
     page: req.query.page
   }
 
-app = module.exports = express.createServer()
+app = module.exports = express()
 
 app.configure ->
   app.set('views', "#{__dirname}/views")
@@ -34,7 +34,7 @@ app.configure ->
   app.use(express.favicon())
   app.use(stylus.middleware({src: "#{__dirname}/views", dest: "#{__dirname}/public"}))
   app.use(express.static("#{__dirname}/public"))
-  app.helpers(require('./helpers').helpers)
+  app.locals(require('./helpers').helpers)
 
 app.get "/", (req, res) ->
   db.dataDate (date) ->

@@ -1,12 +1,15 @@
-h1 Find people whose username contains "#{username}".
+extends layout
 
-table.results
-  tr
-    th User
-  - each u in users
+block content
+  h1 Find people whose username contains "#{username}".
+  
+  table.results
     tr
-      td
-        a(href = profileUrl(u.id)) #{u.name}
-
-script
-  setupInfiniteScroll()
+      th User
+    - each u in users
+      tr
+        td
+          a(href = profileUrl(u.id)) #{u.name}
+  
+  script
+    setupInfiniteScroll()

@@ -1,241 +1,244 @@
-a(href = 'https://github.com/mjmsmith/infodumpster/')
-  img(style = 'position: absolute; top: 0; right: 0; border: 0;',
-      src = 'https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png',
-      alt = 'Fork me on GitHub')
-  
-mixin hidden
-  div(style = 'display:none')
-    input(type = 'text', name = 'site', value = 'mefi')
-    input(type = 'text', name = 'category', value = '')
-    input(type = 'text', name = 'start_date', value = '')
-    input(type = 'text', name = 'end_date', value = '')
+extends layout
 
-table.common-controls
-  tr
-    td In
-    td
-      select(name = '_site')
-        optgroup(label = "#{siteName('mefi')}")
-          option(value = 'mefi:') MeFi: all categories
-        optgroup(label = "#{siteName('askme')}")
-          option(value = 'askme:') Ask: all categories
-          - for category, i in siteCategories('askme')
-            option(value = 'askme:#{i+1}') Ask: #{category}
-        optgroup(label = "#{siteName('meta')}")
-          option(value = 'meta:') Talk: all categories
-          - for category, i in siteCategories('meta')
-            option(value = 'meta:#{i+1}') Talk: #{category}
-        optgroup(label = "#{siteName('music')}")
-          option(value = 'music:') Music: all categories
-          - for category, i in siteCategories('music')
-            option(value = 'music:#{i+1}') Music: #{category}
-    td from
-    td
-      input.datepicker(type = 'text', name = '_start_date', size = '12', placeholder = 'day one')
-    td through
-    td
-      input.datepicker(type = 'text', name = '_end_date', size = '12', placeholder = 'now')
-    td :
-  tr
-    td(colspan = '3')
-    td(style='font-size:70%') yyyy-mm-dd
-    td
-    td(style='font-size:70%') yyyy-mm-dd
-
-h2 People
-
-form(action = '/users/posts')
-  | Who made the most posts 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/users/comments')
-  | Who made the most comments 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/favees/posts')
-  | Whose posts were most favorited by 
-  input(type = 'text', name = 'faver_name', placeholder = 'everyone')
-  | 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/favees/comments')
-  | Whose comments were most favorited by 
-  input(type = 'text', name = 'faver_name', placeholder = 'everyone')
-  | 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form#best(action = '/users/best')
-  | Who has the most best answers 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-h2 Posts
-
-form(action = '/posts/comments')
-  | Which posts by 
-  input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with 
-  input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the most comments 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/posts/favorites')
-  | Which posts by 
-  input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with 
-  input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the most favorites 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/posts/favorites_comments_ratio')
-  | Which posts by 
-  input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with 
-  input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  have the highest favorites:comments ratio 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/posts/longest')
-  | Which posts by 
-  input(type = 'text', name = 'poster_name', placeholder = 'anyone')
-  |  tagged with 
-  input(type = 'text', name = 'tag', placeholder = 'anything')
-  |  are the longest 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-h2 Comments
-
-form(action = '/comments/favorites')
-  | Which comments by 
-  input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
-  |  have the most favorites 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/comments/longest')
-  | Which comments by 
-  input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
-  |  are the longest 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-h2 Fans
-
-form(action = '/favers/posts')
-  | Who favorited the most posts by 
-  input(type = 'text', name = 'poster_name', placeholder = '(username)')
-  | 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-form(action = '/favers/comments')
-  | Who favorited the most comments by 
-  input(type = 'text', name = 'commenter_name', placeholder = '(username)')
-  | 
-  input(type = 'submit', value = '?')
-  mixin hidden
-
-h2 Find
-
-form(action = '/users/find')
-  | Find people whose username contains 
-  input(type = 'text', name = 'username', placeholder = 'anything')
-  | 
-  input(type = 'submit', value = 'go fetch')
-  mixin hidden
-
-form(action = '/posts/find')
-  table
-    tr
-      td.find Find posts where the author's username contains
-      td
-        input(type = 'text', name = 'username', placeholder = 'anything')
-    tr
-      td.find and the title contains
-      td
-        input(type = 'text', name = 'title', placeholder = 'anything')
-    tr
-      td.find and a tag contains
-      td
-        input(type = 'text', name = 'tag', placeholder = 'anything')
-    tr
-      td.find and the deletion reason contains
-      td
-        input(type = 'text', name = 'reason', placeholder = 'anything')
-    tr
-      td.find and there are
-      td
-        input(type = 'text', name = 'comments_count', placeholder = '0', size = '3')
-        |  or more comments
-    tr
-      td.find and there are
-      td
-        input(type = 'text', name = 'favorites_count', placeholder = '0', size = '3')
-        |  or more favorites
-      td
-        input(type = 'submit', value = 'go fetch')
-  mixin hidden
-
-h2 Examples
-
-p
-  a(href = '/posts/comments?poster_name=&tag=&site=mefi&start_date=2012-10-07&end_date=2012-11-06')
-    | Which posts had the most comments in the month before the 2012 US election?
-p
-  a(href = "/users/best?site=askme&start_date=#{new Date().getFullYear()-1}&end_date=#{new Date().getFullYear()-1}")
-    | Who had the most best answers in Ask Metafilter last year?
-p
-  a(href = '/posts/favorites?poster_name=cortex&tag=&site=music&category=1&start_date=&end_date=')
-    | What are cortex's most popular songs?
-p
-  a(href = '/posts/find?reason=wtf&site=mefi')
-    | What makes a bad post?
-p
-  a(href = '/posts/find?title=style&site=mefi&start_date=2000&end_date=2000')
-    | One of these things is not like the others.
-
-h2 Fine Print
-p
-  a(href = 'http://stuff.metafilter.com/infodump/') Infodump data
-  |  current as of #{dataDate}.
-p
-  | Comment or complain 
-  a(href = 'http://www.metafilter.com/user/44102') here
-  | .
-p
-  | The infodumpster is not affiliated with MetaFilter.
-
-script(type='text/javascript')
-  $(function() {
-    $(".datepicker").datepicker({dateFormat: 'yy-mm-dd',
-                                minDate: new Date(1999, 0, 1),
-                                maxDate: '+0',
-                                changeYear: true,
-                                changeMonth: true,
-                                showAnim: 'fadeIn'});
-
-    var _site = $("select[name=_site]").val();
-    var site = _site.substr(0, _site.indexOf(':'));
-
-    switch (site) {
-      case "mefi":  $("body").css("background-color", "#006699"); break;
-      case "askme": $("body").css("background-color", "#426746"); break;
-      case "music": $("body").css("background-color", "#333333"); break;
-      case "meta":  $("body").css("background-color", "#666666"); break;
-    }
+block content
+  a(href = 'https://github.com/mjmsmith/infodumpster/')
+    img(style = 'position: absolute; top: 0; right: 0; border: 0;',
+        src = 'https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png',
+        alt = 'Fork me on GitHub')
     
-    if (site == "askme") {
-      $("form#best").show();
-    }
-    else {
-      $("form#best").hide();
-    }
-  });
+  mixin hidden
+    div(style = 'display:none')
+      input(type = 'text', name = 'site', value = 'mefi')
+      input(type = 'text', name = 'category', value = '')
+      input(type = 'text', name = 'start_date', value = '')
+      input(type = 'text', name = 'end_date', value = '')
+  
+  table.common-controls
+    tr
+      td In
+      td
+        select(name = '_site')
+          optgroup(label = "#{siteName('mefi')}")
+            option(value = 'mefi:') MeFi: all categories
+          optgroup(label = "#{siteName('askme')}")
+            option(value = 'askme:') Ask: all categories
+            - for category, i in siteCategories('askme')
+              option(value = 'askme:#{i+1}') Ask: #{category}
+          optgroup(label = "#{siteName('meta')}")
+            option(value = 'meta:') Talk: all categories
+            - for category, i in siteCategories('meta')
+              option(value = 'meta:#{i+1}') Talk: #{category}
+          optgroup(label = "#{siteName('music')}")
+            option(value = 'music:') Music: all categories
+            - for category, i in siteCategories('music')
+              option(value = 'music:#{i+1}') Music: #{category}
+      td from
+      td
+        input.datepicker(type = 'text', name = '_start_date', size = '12', placeholder = 'day one')
+      td through
+      td
+        input.datepicker(type = 'text', name = '_end_date', size = '12', placeholder = 'now')
+      td :
+    tr
+      td(colspan = '3')
+      td(style='font-size:70%') yyyy-mm-dd
+      td
+      td(style='font-size:70%') yyyy-mm-dd
+  
+  h2 People
+  
+  form(action = '/users/posts')
+    | Who made the most posts 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/users/comments')
+    | Who made the most comments 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/favees/posts')
+    | Whose posts were most favorited by 
+    input(type = 'text', name = 'faver_name', placeholder = 'everyone')
+    | 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/favees/comments')
+    | Whose comments were most favorited by 
+    input(type = 'text', name = 'faver_name', placeholder = 'everyone')
+    | 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form#best(action = '/users/best')
+    | Who has the most best answers 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  h2 Posts
+  
+  form(action = '/posts/comments')
+    | Which posts by 
+    input(type = 'text', name = 'poster_name', placeholder = 'anyone')
+    |  tagged with 
+    input(type = 'text', name = 'tag', placeholder = 'anything')
+    |  have the most comments 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/posts/favorites')
+    | Which posts by 
+    input(type = 'text', name = 'poster_name', placeholder = 'anyone')
+    |  tagged with 
+    input(type = 'text', name = 'tag', placeholder = 'anything')
+    |  have the most favorites 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/posts/favorites_comments_ratio')
+    | Which posts by 
+    input(type = 'text', name = 'poster_name', placeholder = 'anyone')
+    |  tagged with 
+    input(type = 'text', name = 'tag', placeholder = 'anything')
+    |  have the highest favorites:comments ratio 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/posts/longest')
+    | Which posts by 
+    input(type = 'text', name = 'poster_name', placeholder = 'anyone')
+    |  tagged with 
+    input(type = 'text', name = 'tag', placeholder = 'anything')
+    |  are the longest 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  h2 Comments
+  
+  form(action = '/comments/favorites')
+    | Which comments by 
+    input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
+    |  have the most favorites 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/comments/longest')
+    | Which comments by 
+    input(type = 'text', name = 'commenter_name', placeholder = 'anyone')
+    |  are the longest 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  h2 Fans
+  
+  form(action = '/favers/posts')
+    | Who favorited the most posts by 
+    input(type = 'text', name = 'poster_name', placeholder = '(username)')
+    | 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  form(action = '/favers/comments')
+    | Who favorited the most comments by 
+    input(type = 'text', name = 'commenter_name', placeholder = '(username)')
+    | 
+    input(type = 'submit', value = '?')
+    mixin hidden
+  
+  h2 Find
+  
+  form(action = '/users/find')
+    | Find people whose username contains 
+    input(type = 'text', name = 'username', placeholder = 'anything')
+    | 
+    input(type = 'submit', value = 'go fetch')
+    mixin hidden
+  
+  form(action = '/posts/find')
+    table
+      tr
+        td.find Find posts where the author's username contains
+        td
+          input(type = 'text', name = 'username', placeholder = 'anything')
+      tr
+        td.find and the title contains
+        td
+          input(type = 'text', name = 'title', placeholder = 'anything')
+      tr
+        td.find and a tag contains
+        td
+          input(type = 'text', name = 'tag', placeholder = 'anything')
+      tr
+        td.find and the deletion reason contains
+        td
+          input(type = 'text', name = 'reason', placeholder = 'anything')
+      tr
+        td.find and there are
+        td
+          input(type = 'text', name = 'comments_count', placeholder = '0', size = '3')
+          |  or more comments
+      tr
+        td.find and there are
+        td
+          input(type = 'text', name = 'favorites_count', placeholder = '0', size = '3')
+          |  or more favorites
+        td
+          input(type = 'submit', value = 'go fetch')
+    mixin hidden
+  
+  h2 Examples
+  
+  p
+    a(href = '/posts/comments?poster_name=&tag=&site=mefi&start_date=2012-10-07&end_date=2012-11-06')
+      | Which posts had the most comments in the month before the 2012 US election?
+  p
+    a(href = "/users/best?site=askme&start_date=#{new Date().getFullYear()-1}&end_date=#{new Date().getFullYear()-1}")
+      | Who had the most best answers in Ask Metafilter last year?
+  p
+    a(href = '/posts/favorites?poster_name=cortex&tag=&site=music&category=1&start_date=&end_date=')
+      | What are cortex's most popular songs?
+  p
+    a(href = '/posts/find?reason=wtf&site=mefi')
+      | What makes a bad post?
+  p
+    a(href = '/posts/find?title=style&site=mefi&start_date=2000&end_date=2000')
+      | One of these things is not like the others.
+  
+  h2 Fine Print
+  p
+    a(href = 'http://stuff.metafilter.com/infodump/') Infodump data
+    |  current as of #{dataDate}.
+  p
+    | Comment or complain 
+    a(href = 'http://www.metafilter.com/user/44102') here
+    | .
+  p
+    | The infodumpster is not affiliated with MetaFilter.
+  
+  script(type='text/javascript')
+    $(function() {
+      $(".datepicker").datepicker({dateFormat: 'yy-mm-dd',
+                                  minDate: new Date(1999, 0, 1),
+                                  maxDate: '+0',
+                                  changeYear: true,
+                                  changeMonth: true,
+                                  showAnim: 'fadeIn'});
+  
+      var _site = $("select[name=_site]").val();
+      var site = _site.substr(0, _site.indexOf(':'));
+  
+      switch (site) {
+        case "mefi":  $("body").css("background-color", "#006699"); break;
+        case "askme": $("body").css("background-color", "#426746"); break;
+        case "music": $("body").css("background-color", "#333333"); break;
+        case "meta":  $("body").css("background-color", "#666666"); break;
+      }
+      
+      if (site == "askme") {
+        $("form#best").show();
+      }
+      else {
+        $("form#best").hide();
+      }
+    });

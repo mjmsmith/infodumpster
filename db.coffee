@@ -1,9 +1,10 @@
 mysql = require('mysql')
 
-conn = new mysql.Client()
-conn.user = process.env['MYSQL_USER']
-conn.password = process.env['MYSQL_PASSWORD']
-conn.database = 'mefi'
+conn = mysql.createConnection({
+  user: process.env['MYSQL_USER']
+  password: process.env['MYSQL_PASSWORD']
+  database: 'mefi'
+})
 
 connDataDate = null
 queryLimit = 200

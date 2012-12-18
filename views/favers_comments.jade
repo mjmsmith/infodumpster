@@ -1,15 +1,18 @@
-h1 Who favorited the most comments by #{commenter.name} in #{titleSuffix(site, category, startDate, endDate)}?
-  
-table.results
-  tr
-    th Favorites
-    th User
-  - each f in favers
-    tr
-      td.number
-        a(href = commentsFavoritedUrl(site, category, commenter.id, f.id, startDate, endDate)) #{f.count}
-      td
-        a(href = profileUrl(f.id)) #{f.name}
+extends layout
 
-script
-  setupInfiniteScroll()
+block content
+  h1 Who favorited the most comments by #{commenter.name} in #{titleSuffix(site, category, startDate, endDate)}?
+    
+  table.results
+    tr
+      th Favorites
+      th User
+    - each f in favers
+      tr
+        td.number
+          a(href = commentsFavoritedUrl(site, category, commenter.id, f.id, startDate, endDate)) #{f.count}
+        td
+          a(href = profileUrl(f.id)) #{f.name}
+  
+  script
+    setupInfiniteScroll()

@@ -1,15 +1,18 @@
-h1 Who made the most comments in #{titleSuffix(site, category, startDate, endDate)}?
+extends layout
 
-table.results
-  tr
-    th Comments
-    th User
-  - each u in users
+block content
+  h1 Who made the most comments in #{titleSuffix(site, category, startDate, endDate)}?
+  
+  table.results
     tr
-      td.number
-        a(href = commentsActivityUrl(site, u.id)) #{u.comments_count}
-      td
-        a(href = profileUrl(u.id)) #{u.name}
-
-script
-  setupInfiniteScroll()
+      th Comments
+      th User
+    - each u in users
+      tr
+        td.number
+          a(href = commentsActivityUrl(site, u.id)) #{u.comments_count}
+        td
+          a(href = profileUrl(u.id)) #{u.name}
+  
+  script
+    setupInfiniteScroll()

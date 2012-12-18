@@ -1,15 +1,18 @@
-h1 Which posts by #{poster.name} were favorited by #{faver.name} in #{titleSuffix(site, category, startDate, endDate)}?
+extends layout
 
-table.results
-  tr
-    th Date
-    th Post
-  - each p in posts
+block content
+  h1 Which posts by #{poster.name} were favorited by #{faver.name} in #{titleSuffix(site, category, startDate, endDate)}?
+  
+  table.results
     tr
-      td.date
-        #{date(p.created)}
-      td
-        a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
-
-script
-  setupInfiniteScroll()
+      th Date
+      th Post
+    - each p in posts
+      tr
+        td.date
+          | #{date(p.created)}
+        td
+          a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
+  
+  script
+    setupInfiniteScroll()
