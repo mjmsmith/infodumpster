@@ -190,19 +190,19 @@ block content
   h2 Examples
   
   p
-    a(href = '/posts/comments?poster_name=&tag=&site=mefi&start_date=2012-10-07&end_date=2012-11-06')
+    a(href = '/posts/comments?poster_name=&tag=&site=mefi&category=&start_date=2012-10-07&end_date=2012-11-06')
       | Which posts had the most comments in the month before the 2012 US election?
   p
-    a(href = "/users/best?site=askme&start_date=#{new Date().getFullYear()-1}&end_date=#{new Date().getFullYear()-1}")
+    a(href = "/users/best?site=askme&category=&start_date=#{new Date().getFullYear()-1}&end_date=#{new Date().getFullYear()-1}")
       | Who had the most best answers in Ask Metafilter last year?
   p
     a(href = '/posts/favorites?poster_name=cortex&tag=&site=music&category=1&start_date=&end_date=')
       | What are cortex's most popular songs?
   p
-    a(href = '/posts/find?reason=wtf&site=mefi')
+    a(href = '/posts/find?reason=wtf&site=mefi&category=')
       | What makes a bad post?
   p
-    a(href = '/posts/find?title=style&site=mefi&start_date=2000&end_date=2000')
+    a(href = '/posts/find?title=style&site=mefi&category=&start_date=2000&end_date=2000')
       | One of these things is not like the others.
   
   h2 Fine Print
