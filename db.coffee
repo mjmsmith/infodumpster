@@ -336,7 +336,7 @@ exports.usersBest = ({site, category, startDate, endDate, page}, cb) ->
     "select u.id, u.name, count(u.id) as comments_count"
     "from user u"
     "join #{site}_comment c on u.id = c.user_id"
-    "join #{site}_post p on c.post_id = p.post_id"
+    "join #{site}_post p on c.post_id = p.post_id" if category
     "where c.best = 1"
     "and p.category = #{category}" if category
     "and c.created >= '#{expandStartDate(startDate)}'" if startDate
