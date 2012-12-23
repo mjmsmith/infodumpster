@@ -1,11 +1,6 @@
 extends layout
 
 block content
-  a(href = 'https://github.com/mjmsmith/infodumpster/')
-    img(style = 'position: absolute; top: 0; right: 0; border: 0;',
-        src = 'https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png',
-        alt = 'Fork me on GitHub')
-    
   mixin hidden
     div(style = 'display:none')
       input(type = 'text', name = 'site', value = 'mefi')
@@ -212,6 +207,10 @@ block content
   p
     | Comment or complain 
     a(href = 'http://www.metafilter.com/user/44102') here
+    | .
+  p
+    | Source available on 
+    a(href='https://github.com/mjmsmith/infodumpster') Github
     | .
   p
     | The infodumpster is not affiliated with MetaFilter.
