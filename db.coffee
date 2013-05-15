@@ -15,14 +15,14 @@ exports.commentsBested = ({commenter, site, category, startDate, endDate, page},
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select c.comment_id, c.post_id, c.created, p.title, p.deleted"
+    "select c.id, c.post_id, c.created, p.title, p.deleted"
     "from #{site}_comment c"
-    "join #{site}_post p on c.post_id = p.post_id"
+    "join #{site}_post p on p.id = c.post_id"
     "where c.user_id = #{commenter.id} and c.best = 1"
     "and p.category = #{category}" if category
     "and c.created >= '#{expandStartDate(startDate)}'" if startDate
     "and c.created <= '#{expandEndDate(endDate)}'" if endDate
-    "order by c.comment_id desc"
+    "order by c.id desc"
   ].join(" ")
 
   rows(sql, page, cb)
@@ -33,15 +33,15 @@ exports.commentsFavorited = ({commenter, faver, site, category, startDate, endDa
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select c.comment_id, c.post_id, c.created, p.title, p.deleted"
+    "select c.id, c.post_id, c.created, p.title, p.deleted"
     "from #{site}_comment c"
-    "join #{site}_post p on p.post_id = c.post_id"
-    "join #{site}_favorite f on f.comment_id = c.comment_id"
+    "join #{site}_post p on p.id = c.post_id"
+    "join #{site}_favorite f on f.comment_id = c.id"
     "where f.favee_id = #{commenter.id} and f.faver_id = #{faver.id}"
     "and p.category = #{category}" if category
     "and c.created >= '#{expandStartDate(startDate)}'" if startDate
     "and c.created <= '#{expandEndDate(endDate)}'" if endDate
-    "order by c.comment_id desc"
+    "order by c.id desc"
   ].join(" ")
 
   rows(sql, page, cb)
@@ -52,10 +52,10 @@ exports.commentsFavorites = ({commenter, site, category, startDate, endDate, pag
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select c.comment_id, c.favorites_count, c.post_id, c.created, p.title, p.deleted, c.user_id, u.name"
+    "select c.id, c.favorites_count, c.post_id, c.created, p.title, p.deleted, c.user_id, u.name"
     "from #{site}_comment c"
-    "join #{site}_post p on c.post_id = p.post_id"
-    "join user u on c.user_id = u.id"
+    "join #{site}_post p on p.id = c.post_id"
+    "join user u on u.id = c.user_id"
     "where c.favorites_count > 0"
     "and c.user_id = #{commenter.id}" if commenter
     "and p.category = #{category}" if category
@@ -72,10 +72,10 @@ exports.commentsLongest = ({commenter, site, category, startDate, endDate, page}
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select c.comment_id, c.length, c.created, c.post_id, p.title, p.deleted, c.user_id, u.name"
+    "select c.id, c.length, c.created, c.post_id, p.title, p.deleted, c.user_id, u.name"
     "from #{site}_comment c"
-    "join #{site}_post p on c.post_id = p.post_id"
-    "join user u on c.user_id = u.id"
+    "join #{site}_post p on p.id = c.post_id"
+    "join user u on u.id = c.user_id"
     "where 1"
     "and c.user_id = #{commenter.id}" if commenter
     "and p.category = #{category}" if category
@@ -96,8 +96,8 @@ exports.faveesComments = ({faver, site, category, startDate, endDate, page}, cb)
       "select u.id, u.name, count(u.id) as favorites_count"
       "from user u"
       "join #{site}_favorite f on f.favee_id = u.id"
-      "join #{site}_comment c on f.comment_id = c.comment_id"
-      "join #{site}_post p on c.post_id = p.post_id" if category
+      "join #{site}_comment c on c.id = f.comment_id"
+      "join #{site}_post p on p.id = c.post_id" if category
       "where c.favorites_count > 0"
       "and f.faver_id = #{faver.id}"
       "and p.category = #{category}" if category
@@ -110,8 +110,8 @@ exports.faveesComments = ({faver, site, category, startDate, endDate, page}, cb)
     sql = [
       "select u.id, u.name, sum(c.favorites_count) as favorites_count"
       "from user u"
-      "join #{site}_comment c on u.id = c.user_id"
-      "join #{site}_post p on c.post_id = p.post_id" if category
+      "join #{site}_comment c on c.user_id = u.id"
+      "join #{site}_post p on p.id = c.post_id" if category
       "where c.favorites_count > 0"
       "and p.category = #{category}" if category
       "and c.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -132,7 +132,7 @@ exports.faveesPosts = ({faver, site, category, startDate, endDate, page}, cb) ->
       "select u.id, u.name, count(u.id) as favorites_count"
       "from user u"
       "join #{site}_favorite f on f.favee_id = u.id"
-      "join #{site}_post p on f.post_id = p.post_id"
+      "join #{site}_post p on p.id = f.post_id"
       "where favorites_count > 0"
       "and f.faver_id = #{faver.id}"
       "and f.comment_id = 0"
@@ -146,7 +146,7 @@ exports.faveesPosts = ({faver, site, category, startDate, endDate, page}, cb) ->
     sql = [
       "select u.id, u.name, sum(p.favorites_count) as favorites_count"
       "from user u"
-      "join #{site}_post p on u.id = p.user_id"
+      "join #{site}_post p on p.user_id = u.id"
       "where favorites_count > 0"
       "and p.category = #{category}" if category
       "and p.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -166,7 +166,7 @@ exports.faversComments = ({commenter, site, category, startDate, endDate, page},
     "select u.id, u.name, count(f.faver_id) as count"
     "from user u"
     "join #{site}_favorite f on f.faver_id = u.id"
-    "join #{site}_post p on f.post_id = p.post_id" if category
+    "join #{site}_post p on p.id = f.post_id" if category
     "where f.favee_id = #{commenter.id} and f.comment_id != 0"
     "and p.category = #{category}" if category
     "and f.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -186,7 +186,7 @@ exports.faversPosts = ({poster, site, category, startDate, endDate, page}, cb) -
     "select u.id, u.name, count(f.faver_id) as count"
     "from user u"
     "join #{site}_favorite f on f.faver_id = u.id"
-    "join #{site}_post p on f.post_id = p.post_id" if category
+    "join #{site}_post p on p.id = f.post_id" if category
     "where f.favee_id = #{poster.id} and f.comment_id = 0"
     "and p.category = #{category}" if category
     "and f.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -203,10 +203,10 @@ exports.postsComments = ({poster, tag, site, category, startDate, endDate, page}
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select p.post_id, p.title, p.deleted, p.comments_count, p.user_id, p.created, u.name"
+    "select p.id, p.title, p.deleted, p.comments_count, p.user_id, p.created, u.name"
     "from #{site}_post p"
-    "join user u on p.user_id = u.id"
-    "join #{site}_tag t on t.post_id = p.post_id" if tag
+    "join user u on u.id = p.user_id"
+    "join #{site}_tag t on t.post_id = p.id" if tag
     "where p.comments_count > 0"
     "and p.user_id = #{poster.id}" if poster
     "and p.category = #{category}" if category
@@ -224,14 +224,14 @@ exports.postsFavorited = ({poster, faver, site, category, startDate, endDate, pa
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select p.post_id, p.title, p.deleted, p.created"
+    "select p.id, p.title, p.deleted, p.created"
     "from #{site}_post p"
-    "join #{site}_favorite f on f.post_id = p.post_id"
+    "join #{site}_favorite f on f.post_id = p.id"
     "where f.favee_id = #{poster.id} and f.faver_id = #{faver.id} and f.comment_id = 0"
     "and p.category = #{category}" if category
     "and p.created >= '#{expandStartDate(startDate)}'" if startDate
     "and p.created <= '#{expandEndDate(endDate)}'" if endDate
-    "order by p.post_id desc"
+    "order by p.id desc"
   ].join(" ")
 
   rows(sql, page, cb)
@@ -242,10 +242,10 @@ exports.postsFavorites = ({poster, tag, site, category, startDate, endDate, page
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select p.post_id, p.title, p.deleted, p.favorites_count, p.user_id, p.created, u.name"
+    "select p.id, p.title, p.deleted, p.favorites_count, p.user_id, p.created, u.name"
     "from #{site}_post p"
-    "join user u on p.user_id = u.id"
-    "join #{site}_tag t on t.post_id = p.post_id" if tag
+    "join user u on u.id = p.user_id"
+    "join #{site}_tag t on t.post_id = p.id" if tag
     "where p.favorites_count > 0"
     "and p.user_id = #{poster.id}" if poster
     "and p.category = #{category}" if category
@@ -263,10 +263,10 @@ exports.postsFavoritesCommentsRatio = ({poster, tag, site, category, startDate, 
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select p.post_id, p.title, p.deleted, p.favorites_count, p.comments_count, p.user_id, p.created, u.name"
+    "select p.id, p.title, p.deleted, p.favorites_count, p.comments_count, p.user_id, p.created, u.name"
     "from #{site}_post p"
-    "join user u on p.user_id = u.id"
-    "join #{site}_tag t on t.post_id = p.post_id" if tag
+    "join user u on u.id = p.user_id"
+    "join #{site}_tag t on t.post_id = p.id" if tag
     "where p.comments_count > 0 and p.favorites_count > 0"
     "and p.user_id = #{poster.id}" if poster
     "and p.category = #{category}" if category
@@ -288,8 +288,8 @@ exports.postsFind = ({username, title, tag, reason, commentsCount, favoritesCoun
   sql = [
     "select p.*, u.name as username"
     "from #{site}_post p"
-    "join user u on p.user_id = u.id"
-    "join #{site}_tag t on p.post_id = t.post_id" if tag
+    "join user u on u.id = p.user_id"
+    "join #{site}_tag t on t.post_id = p.id" if tag
     "where 1"
     "and p.category = #{category}" if category
     "and p.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -312,10 +312,10 @@ exports.postsLongest = ({poster, tag, site, category, startDate, endDate, page},
   page = parseInt(page, 10) || 0
 
   sql = [
-    "select p.post_id, p.title, p.deleted, p.length, p.user_id, p.created, u.name"
+    "select p.id, p.title, p.deleted, p.length, p.user_id, p.created, u.name"
     "from #{site}_post p"
-    "join user u on p.user_id = u.id"
-    "join #{site}_tag t on t.post_id = p.post_id" if tag
+    "join user u on u.id = p.user_id"
+    "join #{site}_tag t on t.post_id = p.id" if tag
     "where 1"
     "and p.user_id = #{poster.id}" if poster
     "and p.category = #{category}" if category
@@ -335,8 +335,8 @@ exports.usersBest = ({site, category, startDate, endDate, page}, cb) ->
   sql = [
     "select u.id, u.name, count(u.id) as comments_count"
     "from user u"
-    "join #{site}_comment c on u.id = c.user_id"
-    "join #{site}_post p on c.post_id = p.post_id" if category
+    "join #{site}_comment c on c.user_id = u.id"
+    "join #{site}_post p on p.id = c.post_id" if category
     "where c.best = 1"
     "and p.category = #{category}" if category
     "and c.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -355,8 +355,8 @@ exports.usersComments = ({site, category, startDate, endDate, page}, cb) ->
   sql = [
     "select u.id, u.name, count(c.user_id) as comments_count"
     "from user u"
-    "join #{site}_comment c on u.id = c.user_id"
-    "join #{site}_post p on c.post_id = p.post_id" if category
+    "join #{site}_comment c on c.user_id = u.id"
+    "join #{site}_post p on p.id = c.post_id" if category
     "where 1"
     "and p.category = #{category}" if category
     "and c.created >= '#{expandStartDate(startDate)}'" if startDate
@@ -388,7 +388,7 @@ exports.usersPosts = ({site, category, startDate, endDate, page}, cb) ->
   sql = [
     "select u.id, u.name, count(p.user_id) as posts_count"
     "from user u"
-    "join #{site}_post p on u.id = p.user_id"
+    "join #{site}_post p on p.user_id = u.id"
     "where 1"
     "and p.category = #{category}" if category
     "and p.created >= '#{expandStartDate(startDate)}'" if startDate

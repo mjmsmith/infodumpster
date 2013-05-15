@@ -3,7 +3,6 @@
 DROP TABLE IF EXISTS ${site}_post;
 CREATE TABLE ${site}_post (
   id int(11) NOT NULL AUTO_INCREMENT,
-  post_id int(11) NOT NULL,
   user_id int(11) NOT NULL,
   created datetime NOT NULL,
   category int(11) NOT NULL,
@@ -15,7 +14,6 @@ CREATE TABLE ${site}_post (
   title varchar(255) NOT NULL,
   PRIMARY KEY (id),
   KEY user_id (user_id),
-  UNIQUE KEY post_id (post_id),
   KEY comments_count (comments_count),
   KEY favorites_count (favorites_count),
   KEY length (length)
@@ -23,7 +21,7 @@ CREATE TABLE ${site}_post (
 
 LOAD DATA LOCAL INFILE 'postdata_${site}.txt' REPLACE INTO TABLE ${site}_post CHARACTER SET utf8
 LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  post_id,user_id,created,category,comments_count,favorites_count,deleted,reason
+  id,user_id,created,category,comments_count,favorites_count,deleted,reason
 );
 
 # Create and load the temp post title table.
@@ -43,8 +41,8 @@ LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
 
 # Update the _post table and drop the temp title table.
 
-UPDATE ${site}_post p, title t SET p.title = t.title WHERE p.post_id = t.post_id;
-UPDATE ${site}_post SET title = CONCAT('(',post_id,')') WHERE title = '';
+UPDATE ${site}_post p, title t SET p.title = t.title WHERE p.id = t.post_id;
+UPDATE ${site}_post SET title = CONCAT('(',id,')') WHERE title = '';
 UPDATE ${site}_post SET reason = '' WHERE reason = '[NULL]';
 DROP TABLE title;
 
@@ -69,7 +67,7 @@ LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
 
 # Update the _post table and drop the temp length table.
 
-UPDATE ${site}_post p, length l SET p.length = (l.above + l.below + l.urldesc) WHERE p.post_id = l.post_id;
+UPDATE ${site}_post p, length l SET p.length = (l.above + l.below + l.urldesc) WHERE p.id = l.post_id;
 DROP TABLE length;
 
 # Create and load the _comment table.
@@ -78,14 +76,12 @@ DROP TABLE IF EXISTS ${site}_comment;
 CREATE TABLE ${site}_comment (
   id int(11) NOT NULL AUTO_INCREMENT,
   best int(11) NOT NULL,
-  comment_id int(11) NOT NULL,
   created datetime NOT NULL,
   post_id int(11) NOT NULL,
   user_id int(11) NOT NULL,
   favorites_count int(11) NOT NULL,
   length int(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY comment_id (comment_id),
   KEY post_id (post_id),
   KEY user_id (user_id),
   KEY favorites_count (favorites_count),
@@ -94,7 +90,7 @@ CREATE TABLE ${site}_comment (
 
 LOAD DATA LOCAL INFILE 'commentdata_${site}.txt' REPLACE INTO TABLE ${site}_comment CHARACTER SET utf8
 LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  comment_id,post_id,user_id,created,favorites_count,best
+  id,post_id,user_id,created,favorites_count,best
 );
 
 # Create and load the temp commment length table.
@@ -114,7 +110,7 @@ LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
 
 # Update the _comment table and drop the temp length table.
 
-UPDATE ${site}_comment c, length l SET c.length = l.length WHERE c.comment_id = l.comment_id;
+UPDATE ${site}_comment c, length l SET c.length = l.length WHERE c.id = l.comment_id;
 DROP TABLE length;
 
 # Create and load the _tag table.

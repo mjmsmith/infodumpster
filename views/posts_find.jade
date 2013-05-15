@@ -19,11 +19,11 @@ block content
           | #{p.comments_count}
         - if (!reason)
           td.number
-            a(href = postFavoritesUrl(site, p.post_id)) #{p.favorites_count}
+            a(href = postFavoritesUrl(site, p.id)) #{p.favorites_count}
         td.user
           a(href = profileUrl(p.user_id)) #{p.username}
         td
-          a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
+          a(href = postUrl(site, p.id)) !{titleHtml(p.title, p.deleted)}
           - if (reason)
             .reason !{p.reason}
   

@@ -26,7 +26,7 @@ block content
           td.user
             a(href = profileUrl(p.user_id)) #{p.name}
         td
-          a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
+          a(href = postUrl(site, p.id)) !{titleHtml(p.title, p.deleted)}
   
   script
     setupInfiniteScroll()

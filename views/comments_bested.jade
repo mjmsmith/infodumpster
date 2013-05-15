@@ -12,7 +12,7 @@ block content
         td.date
           | #{date(c.created)}
         td
-          a(href = commentUrl(site, c.post_id, c.comment_id)) !{titleHtml(c.title, c.deleted)}
+          a(href = commentUrl(site, c.post_id, c.id)) !{titleHtml(c.title, c.deleted)}
   
   script
     setupInfiniteScroll()

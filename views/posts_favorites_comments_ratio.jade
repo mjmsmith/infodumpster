@@ -22,13 +22,13 @@ block content
         td.date
           | #{date(p.created)}
           td.number
-            a(href = postFavoritesUrl(site, p.post_id)) #{p.favorites_count}
+            a(href = postFavoritesUrl(site, p.id)) #{p.favorites_count}
           td.number #{p.comments_count}
         - if (!poster)
           td.user
             a(href = profileUrl(p.user_id)) #{p.name}
         td
-          a(href = postUrl(site, p.post_id)) !{titleHtml(p.title, p.deleted)}
+          a(href = postUrl(site, p.id)) !{titleHtml(p.title, p.deleted)}
   
   script
     setupInfiniteScroll()
