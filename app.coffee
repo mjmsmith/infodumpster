@@ -19,10 +19,10 @@ preprocessQuery = (req, res, next) ->
 baseArgs = (req) ->
   {
     site: req.query.site
-    category: req.query.category
-    startDate: req.query.start_date
-    endDate: req.query.end_date
-    page: req.query.page
+    category: req.query.category || ""
+    startDate: req.query.start_date || ""
+    endDate: req.query.end_date || ""
+    page: req.query.page || ""
   }
 
 app = module.exports = express()
