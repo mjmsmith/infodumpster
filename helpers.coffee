@@ -98,7 +98,7 @@ exports.helpers = {
     "/posts/favorited?site=#{site}&category=#{category}&poster_id=#{posterID}&faver_id=#{faverID}&start_date=#{startDate}&end_date=#{endDate}"
 
   commentUrl: (site, postID, commentID) ->
-    "http://#{SITE_PREFIXES[site]}.metafilter.com/#{postID}##{commentID}"
+    "http://#{SITE_PREFIXES[site]}.metafilter.com/#{postID}/##{commentID}"
 
   commentsActivityUrl: (site, id) ->
     "http://metafilter.com/activity/#{id}/comments/#{SITE_SUFFIXES[site]}/"
