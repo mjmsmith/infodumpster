@@ -9,7 +9,7 @@
   "bin": {
   },
   "scripts": {
-    "start": "node ./server.js"
+    "start": "node ./index.js"
   },
   "main": "./app",
   "repository": {
