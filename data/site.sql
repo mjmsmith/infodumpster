@@ -20,9 +20,9 @@ CREATE TABLE ${site}_post (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'postdata_${site}.txt' REPLACE INTO TABLE ${site}_post CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  id,user_id,created,category,comments_count,favorites_count,deleted,reason
-);
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
+  id,user_id,@created,category,comments_count,favorites_count,deleted,reason
+) SET created = STR_TO_DATE(@created, "%b %d %Y %h:%i:%s:%f%p");
 
 # Create and load the temp post title table.
 
@@ -35,7 +35,7 @@ CREATE TABLE title (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'posttitles_${site}.txt' REPLACE INTO TABLE title CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
   post_id,title
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE length (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'postlength_${site}.txt' REPLACE INTO TABLE length CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
   post_id,title,above,below,url,urldesc
 );
 
@@ -89,9 +89,9 @@ CREATE TABLE ${site}_comment (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'commentdata_${site}.txt' REPLACE INTO TABLE ${site}_comment CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  id,post_id,user_id,created,favorites_count,best
-);
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
+  id,post_id,user_id,@created,favorites_count,best
+) SET created = STR_TO_DATE(@created, "%b %d %Y %h:%i:%s:%f%p");
 
 # Create and load the temp commment length table.
 
@@ -104,7 +104,7 @@ CREATE TABLE length (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'commentlength_${site}.txt' REPLACE INTO TABLE length CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
   comment_id,length
 );
 
@@ -127,7 +127,7 @@ CREATE TABLE ${site}_tag (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'tagdata_${site}.txt' REPLACE INTO TABLE ${site}_tag CHARACTER SET utf8
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  id,post_id,created,name
-);
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
+  id,post_id,@created,name
+) SET created = STR_TO_DATE(@created, "%b %d %Y %h:%i:%s:%f%p");
 

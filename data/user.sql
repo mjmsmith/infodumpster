@@ -8,7 +8,7 @@ CREATE TABLE user (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE 'usernames.txt' REPLACE INTO TABLE user CHARACTER SET latin1
-LINES TERMINATED BY '\r\n' IGNORE 2 LINES (
-  id,joined,name
-);
+LINES TERMINATED BY '\n' IGNORE 2 LINES (
+  id,@joined,name
+) SET joined = STR_TO_DATE(@joined, "%b %d %Y %h:%i:%s:%f%p");
 
