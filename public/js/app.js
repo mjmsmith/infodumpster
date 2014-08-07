@@ -31,39 +31,6 @@ $(document).ready(function() {
   $("input[name=_end_date]").change(function() {
     $("input[name=end_date]").val($("input[name=_end_date]").val());
   });
-  
-  if (!$.browser.webkit) {
-    $('input[placeholder]').each(function(i) {
-      var item = $(this);
-      var text = item.attr('placeholder');
-      var form = item.parents('form:first');
-
-      if (item.val() === '') {
-        item.val(text);
-        item.css('color', '#888');
-      }
-      
-      item.bind('focus.placeholder', function(event) {
-        if (item.val() === text) {
-          item.val('');
-        }
-        item.css('color', '');
-      });
-      
-      item.bind('blur.placeholder', function(event) {
-        if (item.val() === '') {
-          item.val(text);
-          item.css('color', '#888');
-        }
-      });
-      
-      form.bind("submit.placeholder", function(event) {
-        if (item.val() === text) {
-          item.val("");
-        }
-      });
-    });
-  }
 });
 
 function setupInfiniteScroll() {
