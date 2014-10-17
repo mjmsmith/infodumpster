@@ -215,8 +215,8 @@ block content
   p
     | The infodumpster is not affiliated with MetaFilter.
   
-  script(type='text/javascript').
-    $(function() {
+  script.
+    $(document).ready(function() {
       $(".datepicker").datepicker({dateFormat: 'yy-mm-dd',
                                   minDate: new Date(1999, 0, 1),
                                   maxDate: '+0',

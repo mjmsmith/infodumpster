@@ -1,6 +1,7 @@
+argv = require("optimist").default("port", 3000).argv
+errorhandler = require("errorhandler")
 express = require("express")
 stylus = require("stylus")
-argv = require("optimist").default("port", 3000).argv
 
 require("./lib/date")
 db = require("./db")
@@ -27,14 +28,14 @@ baseArgs = (req) ->
 
 app = module.exports = express()
 
-app.configure ->
-  app.set('views', "#{__dirname}/views")
-  app.set("view engine", "jade")
-  app.use(express.errorHandler({dumpExceptions: true, showStack: true}))
-  app.use(express.favicon())
-  app.use(stylus.middleware({src: "#{__dirname}/views", dest: "#{__dirname}/public"}))
-  app.use(express.static("#{__dirname}/public"))
-  app.locals(require('./helpers').helpers)
+app.set('views', "#{__dirname}/views")
+app.set("view engine", "jade")
+
+app.use(stylus.middleware({src: "#{__dirname}/views", dest: "#{__dirname}/public"}))
+app.use(express.static("#{__dirname}/public"))
+
+for own key, val of require("./helpers")
+  app.locals[key] = val
 
 app.get "/", (req, res) ->
   db.dataDate (date) ->
@@ -207,6 +208,7 @@ app.get "/users/posts", preprocessQuery, (req, res) ->
     args.users = users
     res.render "users_posts", args
 
-app.listen(argv.port)
+app.use(errorhandler())
 
-console.log("running on port #{argv.port}...")
+app.listen argv.port, () ->
+  console.log("running on port #{argv.port}...")

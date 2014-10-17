@@ -47,7 +47,7 @@ SITE_CATEGORIES = {
   ]
 }
 
-exports.helpers = {
+module.exports = {
   siteName: (site) ->
     SITE_NAMES[site]
   
@@ -80,7 +80,7 @@ exports.helpers = {
     phrases.push("the deletion reason contains \"#{reason}\"") if reason
     phrases.push("there are #{commentsCount} or more comments") if commentsCount
     phrases.push("there are #{favoritesCount} or more favorites") if favoritesCount
-    title = "Find posts in #{exports.helpers.titleSuffix(site, category, startDate, endDate)}"
+    title = "Find posts in #{titleSuffix(site, category, startDate, endDate)}"
     title += " where #{phrases.join ' and '}" if phrases.length > 0
     
     title + "."
@@ -122,3 +122,5 @@ exports.helpers = {
   date: (d) ->
     d.format("yyyy-MM-dd")
 }
+
+titleSuffix = module.exports.titleSuffix

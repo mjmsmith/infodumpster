@@ -6,7 +6,7 @@ The **infodumpster** is a tool to analyze [MetaFilter](http://metafilter.com) [i
 Prerequisites
 =============
 
-Node.js v0.8x and MySQL 5.x.
+Node.js and MySQL 5.x.
 
 Installation
 ============
@@ -21,4 +21,4 @@ Run **bin/download** to grab a fresh copy of the MetaFilter infodump.
 
 Run **bin/import** to import it into the database.
 
-Run **node server.js** to start the server.
+Run **node index.js** to start the server.

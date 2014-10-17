@@ -19,12 +19,13 @@
   "keywords": [
   ],
   "dependencies" : {
-    "coffee-script": "1.6.3",
-    "express": "3.4.4",
-    "jade": "0.35.0",
-    "mysql": "2.0.0-alpha9",
-    "optimist": "0.3.5",
-    "stylus": "0.40.0"
+    "coffee-script": "latest",
+    "errorhandler": "latest",
+    "express": "latest",
+    "jade": "latest",
+    "mysql": "latest",
+    "optimist": "latest",
+    "stylus": "latest"
   },
   "noAnalyze": true,
   "devDependencies": {
@@ -33,6 +34,6 @@
   ],
   "license": "MIT",
   "engine": {
-    "node": ">=0.10"
+    "node": "*"
   }
 }
