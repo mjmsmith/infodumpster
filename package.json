@@ -1,6 +1,6 @@
 {
   "name": "infodumpster",
-  "preferGlobal": "false",
+  "preferGlobal": false,
   "version": "1.0.0",
   "author": "Mark Smith <mark@camazotz.com>",
   "description": "MetaFilter Infodump analysis tool",
