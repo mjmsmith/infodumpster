@@ -19,7 +19,10 @@ Dir.chdir(File.dirname($0) + '/../data')
 
 cleanup
 puts 'unzipping infodump'
-`unzip -o infodump-all.zip`
+`/usr/local/opt/unzip/bin/unzip -o infodump-all.zip`
+
+puts 'removing carriage returns'
+`sed -i '' $'s/\r$//' *.txt`
 
 puts 'importing user'
 exec_sql 'user.sql'
